@@ -1,11 +1,41 @@
 <!DOCTYPE html>
-
 <html lang="en">
-    <head>
-        <meta name="viewport" content="initial-scale=1, width=device-width">
-        <title>store</title>
-    </head>
-    <body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1><a href="/">Bookstore</a></h1>
+            <nav>
+                <a href="/">Books</a>
+                <a href="/cart">Cart</a>
+                {% if session.user_id %}
+                    <a href="/logout">Logout</a>
+                {% else %}
+                    <a href="/login">Login</a>
+                    <a href="/register">Register</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <main class="container">
         {% block body %}{% endblock %}
-    </body>
+    </main>
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Bookstore. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
 </html>

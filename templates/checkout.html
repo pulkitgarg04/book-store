@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<section class="checkout">
+    <h2>Checkout</h2>
+    {% if books %}
+    <ul class="cart-list">
+        {% for book in books %}
+        {% set cart_item = cart[loop.index0] %}
+        <li class="cart-item">
+            <img src="{{ book['image_url'] }}" alt="{{ book['title'] }}" class="cart-image">
+            <div class="cart-details">
+                <h4>{{ book["title"] }}</h4>
+                <p>{{ book["author"] }}</p>
+                <p>$ {{ book["price"] }} x {{ cart_item['quantity'] }}</p>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <form action="/checkout" method="post" class="checkout-form">
+        <h3>Shipping Information</h3>
+        <input type="text" name="address" placeholder="Address" required>
+        <input type="text" name="city" placeholder="City" required>
+        <input type="text" name="zip" placeholder="ZIP Code" required>
+        <h3>Payment Information</h3>
+        <input type="text" name="card_number" placeholder="Card Number" required>
+        <input type="text" name="expiry" placeholder="MM/YY" required>
+        <input type="text" name="cvv" placeholder="CVV" required>
+        <button type="submit" class="btn">Complete Purchase</button>
+    </form>
+    {% else %}
+    <p>Your cart is empty. Browse <a href="/">books</a> to add items!</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,14 +1,20 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-    <h1>Books</h1>
-    {% for book in books %}
-        <h2>{{ book["title"] }}</h2>
-        <form action="/cart" method="post">
-            <input name="id" type="hidden" value="{{ book['id'] }}">
-            <button type="submit">Add to Cart</button>
-        </form>
-    {% endfor %}
-
+<section class="books">
+    <h2>Available Books</h2>
+    <div class="book-list">
+        {% for book in books %}
+        <div class="book-card">
+            <img src="{{ book['image_url'] }}" alt="{{ book['title'] }}" class="book-image">
+            <h3>{{ book["title"] }}</h3>
+            <p><strong>Author:</strong> {{ book["author"] }}</p>
+            <form action="/cart" method="post">
+                <input name="id" type="hidden" value="{{ book['id'] }}">
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}

@@ -1,12 +1,22 @@
 {% extends "layout.html" %}
 
 {% block body %}
-
-    <h1>Cart</h1>
-    <ol>
+<section class="cart">
+    <h2>Your Cart</h2>
+    {% if books %}
+    <ul class="cart-list">
         {% for book in books %}
-            <li>{{ book["title"] }}</li>
+        <li class="cart-item">
+            <img src="{{ book['image_url'] }}" alt="{{ book['title'] }}" class="cart-image">
+            <div>
+                <h3>{{ book["title"] }}</h3>
+                <p><strong>Author:</strong> {{ book["author"] }}</p>
+            </div>
+        </li>
         {% endfor %}
-    </ol>
-
+    </ul>
+    {% else %}
+    <p>Your cart is empty. Browse <a href="/">books</a> to add items!</p>
+    {% endif %}
+</section>
 {% endblock %}

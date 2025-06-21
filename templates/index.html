@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<section class="hero">
+    <h2>Discover Your Next Favorite Book</h2>
+    <form action="/search" method="get" class="search-form">
+        <input type="text" name="q" placeholder="Search books..." required>
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for category in categories %}
+                <option value="{{ category['category'] }}">{{ category['category'] }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit">Search</button>
+    </form>
+</section>
+
+<section class="books">
+    <h3>Featured Books</h3>
+    <div class="book-grid">
+        {% for book in books %}
+        <div class="book-card">
+            <img src="{{ book['image_url'] }}" alt="{{ book['title'] }}" class="book-image">
+            <h4>{{ book["title"] }}</h4>
+            <p class="author">{{ book["author"] }}</p>
+            <p class="price">$ {{ book["price"] }}</p>
+            <form action="/cart" method="post">
+                <input name="id" type="hidden" value="{{ book['id'] }}">
+                <input type="number" name="quantity" value="1" min="1" class="quantity">
+                <button type="submit" class="btn">Add to Cart</button>
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
